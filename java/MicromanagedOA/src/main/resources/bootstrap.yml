@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: "MicromanagedOA"
+  cloud:
+    polaris:
+      address: grpc://127.0.0.1:8091
+      namespace: micromanaged
+      config:
+        groups:
+          - name: "micromanagedoa"
+            files: ["dev/application.yml"]
