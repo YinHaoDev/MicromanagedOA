@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.micromanaged.oa.infrastructure.organization.mapper.OrganizationMapper">
+
+    <sql id="fields_select_organization">
+        org_id,
+        org_parent_id,
+        org_name,
+        org_sort,
+        org_leader,
+        org_phone,
+        org_email,
+        org_status
+    </sql>
+
+    <sql id="fields_insert_organization">
+        (org_parent_id,org_name,org_sort,org_leader,org_phone,org_email,org_status)
+    </sql>
+
+    <insert id="insertOrganizationPO" useGeneratedKeys="true" keyColumn="org_id" keyProperty="orgId">
+        INSERT INTO sys_org
+        <include refid="fields_insert_organization"/>
+        (#{po.orgParentId},#{po.orgName},#{po.orgSort},#{po.orgLeader},#{po.orgPhone},#{orgEmail},#{orgStatus})
+    </insert>
+
+    <select id="selectOrganizationTreeView" resultMap="selectOrganizationTreeView">
+        SELECT
+        <include refid="fields_select_organization"/>
+        FROM sys_org org
+        <where>
+            <choose>
+                <when test="orgName != null and orgName != ''">
+                    AND org.org_name LIKE concat('%', #{orgName}, '%')
+                </when>
+                <otherwise>
+                    AND org.org_parent_id = 0
+                </otherwise>
+            </choose>
+
+            <if test="orgStatus == 0 or orgStatus == 1">
+                AND org.org_status = #{orgStatus}
+            </if>
+
+            AND org.delete_flag = 0
+        </where>
+
+        ORDER BY org.org_sort
+    </select>
+
+    <select id="__selectOrganizationTreeView" resultMap="selectOrganizationTreeView">
+        SELECT
+        <include refid="fields_select_organization"/>
+        FROM sys_org org
+        <where>
+            AND org.parent_id = #{orgId}
+            AND org.delete_flag = 0
+        </where>
+
+        ORDER BY org.org_sort
+    </select>
+
+    <resultMap id="selectOrganizationTreeView"
+               type="com.micromanaged.oa.infrastructure.organization.vo.OrganizationTreeViewVO">
+        <id column="org_id" jdbcType="INTEGER" property="orgId" javaType="java.lang.Integer"/>
+        <result column="org_parent_id" jdbcType="INTEGER" property="orgParentId" javaType="java.lang.Integer"/>
+        <result column="org_name" jdbcType="VARCHAR" property="orgName" javaType="java.lang.String"/>
+        <result column="org_sort" jdbcType="INTEGER" property="orgSort" javaType="java.lang.Integer"/>
+        <result column="org_leader" jdbcType="VARCHAR" property="orgLeader" javaType="java.lang.String"/>
+        <result column="org_phone" jdbcType="VARCHAR" property="orgPhone" javaType="java.lang.String"/>
+        <result column="org_email" jdbcType="VARCHAR" property="orgEmail" javaType="java.lang.String"/>
+        <result column="org_status" jdbcType="INTEGER" property="orgStatus" javaType="java.lang.Integer"/>
+        <collection column="{orgId=org_id}" property="children" javaType="java.util.ArrayList"
+                    ofType="com.micromanaged.oa.infrastructure.organization.vo.OrganizationTreeViewVO"
+                    select="__selectOrganizationTreeView"/>
+    </resultMap>
+</mapper>

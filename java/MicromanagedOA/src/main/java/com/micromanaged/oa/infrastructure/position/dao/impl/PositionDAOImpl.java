@@ -8,6 +8,7 @@ import com.micromanaged.oa.infrastructure.position.dto.PositionDTO;
 import com.micromanaged.oa.infrastructure.position.mapper.PositionMapper;
 import com.micromanaged.oa.infrastructure.position.po.PositionPO;
 import com.micromanaged.oa.infrastructure.position.dao.PositionDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -15,6 +16,7 @@ import org.springframework.util.StringUtils;
 @Service
 public class PositionDAOImpl implements PositionDAO {
 
+    @Autowired
     public PositionDAOImpl(PositionMapper mapper) {
         this.mapper = mapper;
     }

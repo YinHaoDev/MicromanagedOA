@@ -4,7 +4,11 @@ public enum GlobalSuccessEnum {
     POSITION_DELETE_SUCCESS(0, "岗位新增成功"),
     POSITION_ADD_SUCCESS(0, "岗位新增成功"),
     POSITION_MODIFY_SUCCESS(0, "岗位修改成功"),
-    POSITION_QUERY_SUCCESS(0, "查询岗位成功");
+    POSITION_QUERY_SUCCESS(0, "查询岗位成功"),
+    ORGANIZATION_QUERY_SUCCESS(0, "组织信息查询成功"),
+    ORGANIZATION_ADD_SUCCESS(0, "新增组织信息成功"),
+    ORGANIZATION_DELETE_SUCCESS(0, "删除组织信息成功"),
+    ORGANIZATION_MODIFY_SUCCESS(0, "更新组织信息成功");
 
     GlobalSuccessEnum(int code, String msg) {
         this.code = code;

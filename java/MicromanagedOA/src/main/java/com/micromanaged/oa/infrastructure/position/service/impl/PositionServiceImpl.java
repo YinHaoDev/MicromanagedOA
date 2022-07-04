@@ -39,7 +39,7 @@ public class PositionServiceImpl extends ServiceImpl<PositionMapper, PositionPO>
     public AbstractViewModel getPositionByID(PositionDTO positionDTO) {
         PositionPO po = this.getById(positionDTO.getPositionId());
         if (null == po) {
-            return ViewModelUtils.createError(GlobalErrorEnum.POSITION_QUERY_ERROR);
+            return ViewModelUtils.error(GlobalErrorEnum.POSITION_QUERY_ERROR);
         }
 
         PositionVO vo = new PositionVO();
@@ -54,13 +54,13 @@ public class PositionServiceImpl extends ServiceImpl<PositionMapper, PositionPO>
 
         int positionId = this.dao.insertPositionPO(po);
         vo.setPositionId(positionId);
-        return ViewModelUtils.createSingleSuccessOrError(0 < positionId, vo, GlobalSuccessEnum.POSITION_ADD_SUCCESS, GlobalErrorEnum.POSITION_ADD_ERROR);
+        return ViewModelUtils.singleView(0 < positionId, vo, GlobalSuccessEnum.POSITION_ADD_SUCCESS, GlobalErrorEnum.POSITION_ADD_ERROR);
     }
 
     @Override
     public AbstractViewModel modifyPositionVO(PositionVO vo) {
         if (ObjectUtils.isEmpty(vo) || 0 >= vo.getPositionId()) {
-            return ViewModelUtils.createError(GlobalErrorEnum.POSITION_QUERY_ERROR);
+            return ViewModelUtils.error(GlobalErrorEnum.POSITION_QUERY_ERROR);
         }
 
         PositionPO po = new PositionPO();
@@ -73,7 +73,7 @@ public class PositionServiceImpl extends ServiceImpl<PositionMapper, PositionPO>
     @Override
     public AbstractViewModel deletePositionVO(PositionDTO positionDTO) {
         if (ObjectUtils.isEmpty(positionDTO) || 0 >= positionDTO.getPositionId()) {
-            return ViewModelUtils.createError(GlobalErrorEnum.POSITION_QUERY_ERROR);
+            return ViewModelUtils.error(GlobalErrorEnum.POSITION_QUERY_ERROR);
         }
 
         boolean delOK = this.removeById(positionDTO.getPositionId());
