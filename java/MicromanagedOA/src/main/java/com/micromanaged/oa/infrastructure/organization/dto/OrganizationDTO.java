@@ -1,8 +1,17 @@
 package com.micromanaged.oa.infrastructure.organization.dto;
 
 public class OrganizationDTO {
+    private Integer orgId;
     private String orgName;
     private Integer orgStatus;
+
+    public Integer getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
+    }
 
     public String getOrgName() {
         return orgName;
