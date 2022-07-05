@@ -1,19 +1,20 @@
 package com.micromanaged.oa.infrastructure.position.vo;
 
 public class PositionVO {
-    private int positionId;
+    private Integer positionId;
     private String positionCode;
     private String positionName;
-    private int positionSort;
-    private int positionStatus;
+    private Integer positionSort;
+    private Integer positionStatus;
     private String positionRemark;
-    private int deleteFlag;
+    private Integer deleteFlag;
+    private Integer version;
 
-    public int getPositionId() {
+    public Integer getPositionId() {
         return positionId;
     }
 
-    public void setPositionId(int positionId) {
+    public void setPositionId(Integer positionId) {
         this.positionId = positionId;
     }
 
@@ -33,19 +34,19 @@ public class PositionVO {
         this.positionName = positionName;
     }
 
-    public int getPositionSort() {
+    public Integer getPositionSort() {
         return positionSort;
     }
 
-    public void setPositionSort(int positionSort) {
+    public void setPositionSort(Integer positionSort) {
         this.positionSort = positionSort;
     }
 
-    public int getPositionStatus() {
+    public Integer getPositionStatus() {
         return positionStatus;
     }
 
-    public void setPositionStatus(int positionStatus) {
+    public void setPositionStatus(Integer positionStatus) {
         this.positionStatus = positionStatus;
     }
 
@@ -57,11 +58,19 @@ public class PositionVO {
         this.positionRemark = positionRemark;
     }
 
-    public int getDeleteFlag() {
+    public Integer getDeleteFlag() {
         return deleteFlag;
     }
 
-    public void setDeleteFlag(int deleteFlag) {
+    public void setDeleteFlag(Integer deleteFlag) {
         this.deleteFlag = deleteFlag;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

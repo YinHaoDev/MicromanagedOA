@@ -10,7 +10,8 @@
         org_leader,
         org_phone,
         org_email,
-        org_status
+        org_status,
+        version
     </sql>
 
     <sql id="fields_insert_organization">
@@ -69,6 +70,7 @@
         <result column="org_phone" jdbcType="VARCHAR" property="orgPhone" javaType="java.lang.String"/>
         <result column="org_email" jdbcType="VARCHAR" property="orgEmail" javaType="java.lang.String"/>
         <result column="org_status" jdbcType="INTEGER" property="orgStatus" javaType="java.lang.Integer"/>
+        <result column="version" jdbcType="INTEGER" property="version" javaType="java.lang.Integer"/>
         <collection column="{orgId=org_id}" property="children" javaType="java.util.ArrayList"
                     ofType="com.micromanaged.oa.infrastructure.organization.vo.OrganizationTreeViewVO"
                     select="__selectOrganizationTreeView"/>

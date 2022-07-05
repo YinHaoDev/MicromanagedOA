@@ -9,6 +9,7 @@ public class OrganizationVO {
     private String orgPhone;
     private String orgEmail;
     private Integer orgStatus;
+    private Integer version;
 
     public Integer getOrgId() {
         return orgId;
@@ -72,5 +73,13 @@ public class OrganizationVO {
 
     public void setOrgStatus(Integer orgStatus) {
         this.orgStatus = orgStatus;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }
