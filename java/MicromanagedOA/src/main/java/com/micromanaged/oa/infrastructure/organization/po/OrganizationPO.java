@@ -21,9 +21,11 @@ public class OrganizationPO {
     private String orgEmail;
     @TableField(value = "org_status")
     private Integer orgStatus;
-    @TableLogic(value = "delete_flag")
+    @TableLogic(value = "0", delval = "1")
+    @TableField(value = "delete_flag")
     private Integer deleteFlag;
     @Version
+    @TableField(value = "version")
     private Integer version;
 
     public Integer getOrgId() {

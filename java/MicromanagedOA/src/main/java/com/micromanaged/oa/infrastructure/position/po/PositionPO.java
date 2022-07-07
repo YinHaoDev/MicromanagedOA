@@ -17,9 +17,11 @@ public class PositionPO {
     private Integer positionStatus;
     @TableField(value = "position_remark")
     private String positionRemark;
-    @TableLogic("delete_flag")
+    @TableLogic(value = "0", delval = "1")
+    @TableField(value = "delete_flag")
     private Integer deleteFlag;
     @Version
+    @TableField(value = "version")
     private Integer version;
 
     public Integer getPositionId() {
