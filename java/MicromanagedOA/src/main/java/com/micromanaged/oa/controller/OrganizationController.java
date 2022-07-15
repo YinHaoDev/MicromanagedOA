@@ -25,7 +25,7 @@ public class OrganizationController {
     private final OrganizationService organizationService;
 
     @ResponseBody
-    @PostMapping(value = "/ist", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/list", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ListViewModel<OrganizationTreeViewVO>> getOrganizations(@RequestBody OrganizationDTO dto) {
         return new ResponseEntity<>(organizationService.getOrgTreeView(dto), HttpStatus.OK);
     }

@@ -8,7 +8,11 @@ public enum GlobalSuccessEnum {
     ORGANIZATION_QUERY_SUCCESS(0, "组织信息查询成功"),
     ORGANIZATION_ADD_SUCCESS(0, "新增组织信息成功"),
     ORGANIZATION_DELETE_SUCCESS(0, "删除组织信息成功"),
-    ORGANIZATION_MODIFY_SUCCESS(0, "更新组织信息成功");
+    ORGANIZATION_MODIFY_SUCCESS(0, "更新组织信息成功"),
+    MENU_QUERY_SUCCESS(0, "查询菜单成功"),
+    MENU_ADD_SUCCESS(0, "新增菜单成功"),
+    MENU_DELETE_SUCCESS(0, "删除菜单成功"),
+    MENU_MODIFY_SUCCESS(0, "更新菜单成功");
 
     GlobalSuccessEnum(int code, String msg) {
         this.code = code;

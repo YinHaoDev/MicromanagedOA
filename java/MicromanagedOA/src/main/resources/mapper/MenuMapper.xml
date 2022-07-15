@@ -3,11 +3,89 @@
 <mapper namespace="com.micromanaged.oa.infrastructure.menu.mapper.MenuMapper">
 
     <sql id="fields_select_menu">
-
+        menu_id,
+        menu_parent_id,
+        menu_name,
+        menu_sort,
+        menu_url,
+        menu_type,
+        menu_status,
+        menu_icon,
+        menu_open_type,
+        menu_visible,
+        menu_remark,
+        menu_component_path,
+        menu_permission_mark,
+        delete_flag,
+        version
+    </sql>
+    <sql id="fields_insert_menu">
+        (menu_parent_id,menu_name,menu_sort,menu_url,menu_type,menu_status,menu_icon,menu_open_type,menu_visible,menu_remark,menu_component_path,menu_permission_mark,delete_flag,version)
     </sql>
 
-    <select id="selectMenuTreeViewVO">
+    <insert id="insertMenuPO" useGeneratedKeys="true" keyColumn="menu_id" keyProperty="menuId">
+        INSERT INTO sys_menu
+        <include refid="fields_insert_menu"/>
+        (#{po.menuParentId},#{po.menuName},#{po.menuSort},#{po.menuUrl},#{po.menuType},#{po.menuStatus},#{po.menuIcon},#{po.menuOpenType},#{po.menuVisible},#{po.menuRemark},#{po.menuComponentPath},#{po.menuPermissionMark},0,0)
+    </insert>
 
+    <select id="selectMenuTreeViewVO" resultMap="selectMenuTreeViewVO">
+        <bind name="_menuName" value="'%'+menuName+'%'"/>
+        SELECT
+        <include refid="fields_select_menu"/>
+        FROM sys_menu menu
+        <where>
+            <choose>
+                <when test="menuName != null and menuName != ''">
+                    AND menu.menu_name LIKE #{_menuName}
+                </when>
+                <otherwise>
+                    AND menu.menu_parent_id = 0
+                </otherwise>
+            </choose>
+
+            <if test="status == 0 or status == 1">
+                AND menu.menu_status = #{status}
+            </if>
+
+            AND menu.delete_flag = 0
+        </where>
+
+        ORDER BY menu.menu_sort
     </select>
+
+    <select id="__selectMenuTreeViewVO" resultMap="selectMenuTreeViewVO">
+        SELECT
+        <include refid="fields_select_menu"/>
+        FROM sys_menu menu
+        <where>
+            AND menu.menu_parent_id = #{menuId}
+            AND menu.delete_flag = 0
+        </where>
+
+        ORDER BY menu.menu_sort
+    </select>
+
+    <resultMap id="selectMenuTreeViewVO" type="com.micromanaged.oa.infrastructure.menu.vo.MenuTreeViewVO">
+        <id column="menu_id" jdbcType="INTEGER" property="menuId" javaType="java.lang.Integer"/>
+        <result column="menu_parent_id" jdbcType="INTEGER" property="menuParentId" javaType="java.lang.Integer"/>
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName" javaType="java.lang.String"/>
+        <result column="menu_sort" jdbcType="INTEGER" property="menuSort" javaType="java.lang.Integer"/>
+        <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" javaType="java.lang.String"/>
+        <result column="menu_type" jdbcType="INTEGER" property="menuType" javaType="java.lang.Integer"/>
+        <result column="menu_status" jdbcType="INTEGER" property="menuStatus" javaType="java.lang.Integer"/>
+        <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon" javaType="java.lang.String"/>
+        <result column="menu_open_type" jdbcType="INTEGER" property="menuOpenType" javaType="java.lang.Integer"/>
+        <result column="menu_visible" jdbcType="INTEGER" property="menuVisible" javaType="java.lang.Integer"/>
+        <result column="menu_remark" jdbcType="VARCHAR" property="menuRemark" javaType="java.lang.String"/>
+        <result column="menu_component_path" jdbcType="VARCHAR" property="menuComponentPath"
+                javaType="java.lang.String"/>
+        <result column="menu_permission_mark" jdbcType="VARCHAR" property="menuPermissionMark"
+                javaType="java.lang.String"/>
+        <result column="version" jdbcType="INTEGER" property="version" javaType="java.lang.String"/>
+        <collection column="{menuId=menu_id}" property="children" javaType="java.util.ArrayList"
+                    ofType="com.micromanaged.oa.infrastructure.menu.vo.MenuTreeViewVO"
+                    select="__selectMenuTreeViewVO"/>
+    </resultMap>
 
 </mapper>
