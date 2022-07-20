@@ -8,9 +8,11 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @MapperScan("com.micromanaged.oa.infrastructure.*.mapper")
+@EnableTransactionManagement
 public class MicromanagedOAConfiguration {
 
     @Bean

@@ -12,7 +12,9 @@ public enum GlobalSuccessEnum {
     MENU_QUERY_SUCCESS(0, "查询菜单成功"),
     MENU_ADD_SUCCESS(0, "新增菜单成功"),
     MENU_DELETE_SUCCESS(0, "删除菜单成功"),
-    MENU_MODIFY_SUCCESS(0, "更新菜单成功");
+    MENU_MODIFY_SUCCESS(0, "更新菜单成功"),
+    ROLE_ADD_SUCCESS(0, "角色新增成功"),
+    ROLE_MODIFY_SUCCESS(0, "角色修改成功");
 
     GlobalSuccessEnum(int code, String msg) {
         this.code = code;

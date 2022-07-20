@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.micromanaged.oa.infrastructure.role.mapper.RoleMapper">
+
+    <sql id="fields_insert_role">
+        (role_name,role_mark,role_sort,role_status,role_remark,delete_flag,version)
+    </sql>
+
+    <insert id="insertRolePO" useGeneratedKeys="true" keyColumn="role_id" keyProperty="roleId">
+        INSERT INTO sys_role
+        <include refid="fields_insert_role"/>
+        (#{po.roleName},#{po.roleMark},#{po.roleSort},#{po.roleStatus},#{po.roleRemark},0,0)
+    </insert>
+
+</mapper>
